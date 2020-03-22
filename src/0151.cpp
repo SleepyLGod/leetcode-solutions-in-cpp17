@@ -1,0 +1,50 @@
+class Solution {
+ public:
+  string reverseWords(string s) {
+    trim(s);
+    reverse(begin(s), end(s));
+    int l = 0;
+    int r = 0;
+    while (l < size(s)) {
+      while (l < size(s) && s[l] == ' ') {
+        ++l;
+      }
+      r = l + 1;
+      while (r < size(s) && s[r] != ' ') {
+        ++r;
+      }
+      reverse(begin(s) + l, begin(s) + r);
+      l = r;
+    }
+    return s;
+  }
+
+  void trim(string& s) {
+    int l = 0;
+    int r = 0;
+    int cur = 0;
+    while (cur < size(s) && l < size(s)) {
+      while (l < size(s) && s[l] == ' ') {
+        ++l;
+      }
+      r = l + 1;
+      while (r < size(s) && s[r] != ' ') {
+        ++r;
+      }
+      if (l >= size(s)) {
+        break;
+      }
+      for (int i = l; i < r; ++i) {
+        s[cur] = s[i];
+        ++cur;
+      }
+      if (cur >= size(s)) {
+        return;
+      }
+      s[cur] = ' ';
+      ++cur;
+      l = r;
+    }
+    s = s.substr(0, cur - 1);
+  }
+};
